@@ -4,7 +4,9 @@ block content
   h2 Top Teams
   ul.team-list
     each team in teams
-      li
+      li.team-card
         a(href=`/team/${team.team.id}`)
           img(src=team.team.logo, alt=team.team.name)
-          span= team.team.name
+          .team-card-content
+            h3= team.team.name
+            p Rank: #{team.rank}
