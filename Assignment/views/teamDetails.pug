@@ -2,33 +2,38 @@ extends layout
 
 block content
   .team-details
-    h2= stats.team.name
-    img(src=stats.team.logo, alt=stats.team.name)
-    
-    h3 Statistics
     .team-stats
-      .stat-card
-        h4 Matches Played
-        p= stats.fixtures.played.total
-      .stat-card
-        h4 Wins
-        p= stats.fixtures.wins.total
-      .stat-card
-        h4 Draws
-        p= stats.fixtures.draws.total
-      .stat-card
-        h4 Losses
-        p= stats.fixtures.loses.total
-      .stat-card
-        h4 Goals For
-        p= stats.goals.for.total.total
-      .stat-card
-        h4 Goals Against
-        p= stats.goals.against.total.total
+      h2= stats.team.name
+      img(src=stats.team.logo, alt=stats.team.name)
+      
+      h3 Statistics
+      .stat-grid
+        .stat-card
+          h4 Matches Played
+          p= stats.fixtures.played.total
+        .stat-card
+          h4 Wins
+          p= stats.fixtures.wins.total
+        .stat-card
+          h4 Draws
+          p= stats.fixtures.draws.total
+        .stat-card
+          h4 Losses
+          p= stats.fixtures.loses.total
+        .stat-card
+          h4 Goals For
+          p= stats.goals.for.total.total
+        .stat-card
+          h4 Goals Against
+          p= stats.goals.against.total.total
 
-    h3 Stadium Location
-    #map(data-longitude=location[0], data-latitude=location[1])
+    .map-container
+      h3 Stadium Location
+      if location
+        #map(data-longitude=location[0], data-latitude=location[1])
+      else
+        p Stadium location information is not available.
 
-  script(src='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js')
-  link(href='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css' rel='stylesheet')
+  script(src='https://api.mapbox.com/mapbox-gl-js/v3.5.1/mapbox-gl.js')
+  link(href='https://api.mapbox.com/mapbox-gl-js/v3.5.1/mapbox-gl.css' rel='stylesheet')
   script(src='/js/map.js')
