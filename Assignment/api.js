@@ -34,6 +34,7 @@ const getTeamStatistics = async (team, league, season) => {
         'x-rapidapi-host': 'v3.football.api-sports.io'
       }
     });
+    console.log('Full API response:', JSON.stringify(response.data, null, 2));
     return response.data.response;
   } catch (error) {
     console.error('Error fetching team statistics:', error);
@@ -41,25 +42,58 @@ const getTeamStatistics = async (team, league, season) => {
   }
 };
 
+const getTeamDetails = async (teamId) => {
+  try {
+    const response = await axios.get(`${FOOTBALL_API_BASE_URL}/teams`, {
+      params: { id: teamId },
+      headers: {
+        'x-rapidapi-key': FOOTBALL_API_KEY,
+        'x-rapidapi-host': 'v3.football.api-sports.io'
+      }
+    });
+    console.log('Full team details response:', JSON.stringify(response.data, null, 2));
+    return response.data.response[0];
+  } catch (error) {
+    console.error('Error fetching team details:', error);
+    throw error;
+  }
+};
+
 // Mapbox API call
 const getStadiumLocation = async (stadiumName, city, country) => {
   try {
+    if (!stadiumName || !city || !country) {
+      console.error('Missing stadium information:', { stadiumName, city, country });
+      return null; // or return an error
+    }
+
     const query = `${stadiumName}, ${city}, ${country}`;
+    console.log('Geocoding query:', query);
+    
     const response = await axios.get(`${MAPBOX_API_BASE_URL}/geocoding/v5/mapbox.places/${encodeURIComponent(query)}.json`, {
       params: {
         access_token: MAPBOX_ACCESS_TOKEN,
         limit: 1
       }
     });
-    return response.data.features[0].center; // Returns [longitude, latitude]
+
+    if (response.data.features.length === 0) {
+      console.error('No location found for query:', query);
+      return null; // or return null
+    }
+
+    const location = response.data.features[0].center;
+    console.log('Geocoding result:', location);
+    return location; // Returns [longitude, latitude]
   } catch (error) {
     console.error('Error fetching stadium location:', error);
-    throw error;
+    return null; // or return null
   }
 };
 
 module.exports = {
   getTopTeams,
   getTeamStatistics,
+  getTeamDetails,
   getStadiumLocation
 };
