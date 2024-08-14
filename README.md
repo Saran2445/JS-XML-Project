@@ -29,3 +29,50 @@ Before you begin, ensure you have the following:
 - npm (usually comes with Node.js)
 - API key from Football-API
 - Access token from Mapbox
+
+## Installation
+
+### Clone the Repository
+
+```bash
+git clone https://github.com/your-username/your-repository.git
+cd your-repository
+```
+
+### Install Dependencies
+
+Install the necessary Node.js dependencies by running:
+
+```bash
+npm install
+```
+
+### Set up Environment Variables
+
+Create a `.env` file in the project's root directory and fill it with your API keys:
+
+```plaintext
+FOOTBALL_API_KEY=your_football_api_key
+MAPBOX_ACCESS_TOKEN=your_mapbox_access_token
+```
+
+### Start the Server
+
+Launch the server using:
+
+```bash
+npm start
+```
+
+This will activate the server on `http://localhost:3000`. Navigate to this URL in your browser to start using the application.
+
+## Usage
+
+1. **Home Page**: View the list of top teams from the selected league
+2. **Team Details**: Click on a team to access detailed statistics
+3. **Stadium Map**: Interact with the map on the team details page to explore the stadium location
+
+## Acknowledgments
+
+- Football-API for providing comprehensive football data
+- Mapbox for their excellent mapping services   
